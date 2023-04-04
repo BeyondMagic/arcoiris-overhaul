@@ -1,313 +1,67 @@
--- This file should be edited by the user. Read the instructions of each section and then edit them as desired.
-
---[[ Highlite, a Neovim colorscheme template.
-* Author:     Iron-E (https://github.com/Iron-E)
-* Repository: https://github.com/nvim-highlite
-
-Initially forked from vim-rnb, a Vim colorsheme template:
-* Author:        Romain Lafourcade (https://github.com/romainl)
-* Canonical URL: https://github.com/romainl/vim-rnb
-]]
-
---[[ Introduction
-This template is designed to help Neovim users create their own colorschemes
-without much effort. You will not need any additional tooling: just open it
-in Neovim and follow the instructions.
-
-The process is divided in five steps:
-
-1. Rename the template,
-2. Edit your colorscheme's information,
-3. Define your colors,
-4. Define your highlight groups and links, and
-5. Sourcing your colorscheme.
-]]
-
---[[ Step 1: Renaming
-* If this file is distributed with a colorscheme it's probably already named correctly
-  and you can skip this step.
-* If you forked/cloned/copied this repository to create your own colorscheme, you will have to
-  rename this template to match the name of your colorscheme.
-
-NOTE: Neovim doesn't really care about whitespace in the name of the colorscheme but it does for
-filenames so make sure your filename doesn't have any whitespace character.
-
-| colorscheme name  | module name | template filename |
-|:-----------------:|:-----------:|:-----------------:|
-| foobar            | foobar      | foobar.lua        |
-| foo-bar           | foo_bar     | foo_bar.lua       |
-| foo bar           | foo_bar     | foo_bar.lua       |
-| foo_bar           | foo_bar     | foo_bar.lua       |
-
-Rename the following files:
-
-* `colors/highlite.lua` → `colors/<your_colorscheme>.lua`
-* `lua/highlite.lua` → `lua/<your_colorscheme>.lua`
-* `lua/highlite/colors.lua` → `lua/<your_colorscheme>/colors.lua`
-
-NOTE: If you are on a Unix-based system (or have WSL on Windows) you can use the setup script at the root of this repo.
-	   See the README for more details.
-]]
-
-
---[[ Step 2: Information
-In this step you will define information that helps Neovim process:
-
-1. How users access your colorscheme;
-2. How your colorscheme should be rendered.
-]]
-
--- This is the name of your colorscheme which will be used as per |g:colors_name|.
-local colorscheme_name = 'highlite'
-
--- WARN: users shouldn't touch this.
-vim.api.nvim_set_var('colors_name', colorscheme_name)
-
---[[ Step 3: Colors
-Here you define all of the colors that you will use for the color scheme. Each one is made up of three parts:
-
-```lua
-<color name> = { -- Give each color a distinctive name.
-	'#<hex color code>', -- Hexadecimal color used in GVim/MacVim
-	<8-bit color code>, -- Integer 0–255 used by terminals supporting 256 colors
-	'<ANSI color name>'  -- color name used by less capable color terminals, can be 'darkred',
-								  'red', 'darkgreen', 'green', 'darkyellow', 'yellow', 'darkblue',
-								  'blue', 'darkmagenta', 'magenta', 'black', 'darkgrey', 'grey',
-								  'white'
-}
-```
-
-NOTE: See https://gist.github.com/gagbo/7943c9a71cab22b641d2904a6d59ec3a
-		for a program that can generate 16-bit colors from a Hex code.
-
-If your colors are defined correctly, the resulting colorscheme is guaranteed
-to work in GVim (Windows/Linux), MacVim (MacOS), and any properly set up terminal
-emulator. Type errors in the definition will show up as LSP diagnostics.
-
-NOTE: |Replace-mode| will probably be useful here.
-]]
-
-local black       = {'#202020', 235, 'black'} --- @type highlite.color.definition
-local gray        = {'#808080', 244, 'gray'} --- @type highlite.color.definition
-local gray_dark   = {'#353535', 236, 'darkgrey'} --- @type highlite.color.definition
-local gray_darker = {'#505050', 239, 'gray'} --- @type highlite.color.definition
-local gray_light  = {'#c0c0c0', 250, 'gray'} --- @type highlite.color.definition
-local white       = {'#ffffff', 231, 'white'} --- @type highlite.color.definition
-
-local tan = {'#f4c069', 221, 'yellow'} --- @type highlite.color.definition
-
-local red       = {'#ee4a59', 203, 'red'} --- @type highlite.color.definition
-local red_dark  = {'#a80000', 124, 'darkred'} --- @type highlite.color.definition
-local red_light = {'#ff4090', 205, 'red'} --- @type highlite.color.definition
-
-local orange       = {'#ff8900', 208, 'darkyellow'} --- @type highlite.color.definition
-local orange_light = {'#f0af00', 214, 'darkyellow'} --- @type highlite.color.definition
-
-local yellow = {'#f0df33', 227, 'yellow'} --- @type highlite.color.definition
-
-local green_dark  = {'#70d533', 113, 'darkgreen'} --- @type highlite.color.definition
-local green       = {'#22ff22', 46,  'green'} --- @type highlite.color.definition
-local green_light = {'#99ff99', 120, 'green'} --- @type highlite.color.definition
-local turqoise    = {'#2bff99', 48,  'green'} --- @type highlite.color.definition
-
-local blue = {'#7766ff', 63,  'darkblue'} --- @type highlite.color.definition
-local cyan = {'#33dbc3', 80,  'cyan'} --- @type highlite.color.definition
-local ice  = {'#95c5ff', 111, 'cyan'} --- @type highlite.color.definition
-local teal = {'#60afff', 75,  'blue'} --- @type highlite.color.definition
-
-local magenta      = {'#d5508f', 168, 'magenta'} --- @type highlite.color.definition
-local magenta_dark = {'#bb0099', 126, 'darkmagenta'} --- @type highlite.color.definition
-local pink         = {'#ffa6ff', 219, 'magenta'} --- @type highlite.color.definition
-local pink_light   = {'#ffb7b7', 217, 'white'} --- @type highlite.color.definition
-local purple       = {'#cf55f0', 171, 'magenta'} --- @type highlite.color.definition
-local purple_light = {'#af60af', 133, 'darkmagenta'} --- @type highlite.color.definition
-
---[[ Step 4: highlights
-You can define highlight groups like this:
-
-```lua
-<highlight group name> = {
-	-- The color for the background, or `nil`
-	bg = <color>,
-
-	-- The color for the foreground, or `nil`
-	fg = <color>
-
-	-- The |guisp| value, if one is desired.
-	[, sp = <color>]
-
-	-- The |highlight-blend| value, if one is desired.
-	[, blend = <integer>]
-
-	-- Bold, italic, and more. See |attr-list| for more information.
-	[, bold = true|false]
-	[, default = true|false]
-	[, italic = true|false]
-	[, nocombine = true|false]
-	[, reverse = true|false]
-	[, standout = true|false]
-	[, strikethrough = true|false]
-	[, undercurl = true|false]
-	[, underdashed = true|false]
-	[, underdotted = true|false]
-	[, underdouble = true|false]
-	[, underline = true|false]
-}
-```
-
-You can also link one highlight group to another, using whatever style you prefer:
-
-```lua
-<highlight group name> = '<highlight group name>' -- highlite style
-<highlight group name> = {link = '<highlight group name>'} -- nvim API style
-```
-____________________________________________________________________________
-
-Here is an example to define `SpellBad` and then link some new group
-`SpellWorse` to it:
-
-```lua
-SpellBad = { -- ← name of the highlight group
-	bg = nil, -- no background
-	fg = white, -- white foreground
-	sp = red, -- red underline
-	undercurl = true, -- squiggly line
-},
-
-SpellWorse = 'SpellBad' -- link SpellWorse to SpellBad
-```
-
-If you weren't satisfied with undercurl, and also wanted another effect, you can
-add another one below 'undercurl' and it will be applied as well:
-
-```lua
-SpellBad = { -- ← name of the highlight group
-	bg = nil, -- no background
-	fg = white, -- white foreground
-	sp = red, -- red underline
-	standout = true,
-	undercurl = true, -- squiggly line
-},
-```
-____________________________________________________________________________
-
-If you want to create a colorscheme that is responsive to the user's
-'background' setting, you can specify special `light` and `dark` keys to
-define how each group should be highlighted in each case.
-
-```lua
-SpellBad = {
-	bg = nil,
-	dark = {fg = white},
-	light = {fg = black},
-	sp = red,
-	undercurl = true,
-}
-```
-
-Whenever the user changes their 'background' setting, the settings inside of
-whichever key is relevant will be loaded.
-____________________________________________________________________________
-
-You can add any custom highlight group to the standard list below but you
-shouldn't remove any if you want a working colorscheme. Most of them are
-described under |highlight-default|, some from |group-name|, and others from
-common syntax groups.  Both help sections are good reads.
-____________________________________________________________________________
-
-If you want to inherit a specific attribute of another highlight group, you
-can do the following:
-
-```lua
--- copy `SpellRare` except `sp = red`
-SpellBad = function(self)
-	local definition = vim.deepcopy(self.SpellRare)
-	definition.sp = red
-	return definition
-end
-```
-
-The function will be executed by |highlite| and transformed into the
-expected result.
-____________________________________________________________________________
-
-NOTE: |Replace-mode| will probably be useful here.
-
-NOTE: /As long as you do not remove any highlight groups or colors/, you can
-		safely ignore any highlight groups that are `link`ed to others.
-
-		For example, programming languages almost exclusively link to the 1st
-		and 2nd sections, so as long as you define everything there you will
-		automatically be defining the rest of the highlights, which is one of
-		the benefits of using this template.
-]]
-
--- WARN: users shouldn't touch this.
-local colorscheme = require(colorscheme_name)
-
 --[[ These are the ones you should edit.
-     TIP: you can use `colors.black`, etc to access what you defined in the other file. ]]
-colorscheme.highlight_all {
+     TIP: you can use `colors.COLOUR.black`, etc to access what you defined in the other file. ]]
+
+return {
 	--[[ Plaintext ]]
 
 	-- Basic styles
 	Bold = {bold = true},
 	Italic = {italic = true},
-	Normal = {fg = gray_light},
+	Normal = {fg = COLOUR.gray_light},
 	Title = 'Bold',
-	Underlined = {fg = turqoise, underline = true},
+	Underlined = {fg = COLOUR.turqoise, underline = true},
 	Whitespace = 'NonText',
 
 	-- "Non"-text
 	Conceal = 'NonText',
 	EndOfBuffer = 'NonText',
-	Ignore = {fg = gray},
-	NonText = {fg = gray_darker},
+	Ignore = {fg = COLOUR.gray},
+	NonText = {fg = COLOUR.gray_darker},
 
 	-- Literals
-	Constant = {fg = orange_light},
-	String = {fg = green_dark},
-	Character = {fg = red_light},
-	Number = {fg = pink_light},
-	Boolean = {fg = yellow},
+	Constant = {fg = COLOUR.orange_light},
+	String = {fg = COLOUR.green_dark},
+	Character = {fg = COLOUR.red_light},
+	Number = {fg = COLOUR.pink_light},
+	Boolean = {fg = COLOUR.yellow},
 	Float = 'Number',
 
 	-- Syntax
-	Comment = {fg = gray, italic = true},
-	Conditional = {fg = ice, italic = true},
+	Comment = {fg = COLOUR.gray, italic = true},
+	Conditional = {fg = COLOUR.ice, italic = true},
 	Debug = 'WarningMsg',
-	Delimiter = {fg = white},
-	Exception = {fg = red_light, bold = true},
-	Function = {fg = purple},
+	Delimiter = {fg = COLOUR.white},
+	Exception = {fg = COLOUR.red_light, bold = true},
+	Function = {fg = COLOUR.purple},
 	Identifier = function(self) return {fg = self.Normal.fg} end,
-	Keyword = {fg = teal},
-	Label = {fg = pink, bold = true},
+	Keyword = {fg = COLOUR.teal},
+	Label = {fg = COLOUR.pink, bold = true},
 	Noise = 'Delimiter',
-	Operator = {fg = green, bold = true},
-	Repeat = {fg = turqoise, italic = true},
-	Statement = {fg = ice},
-	StorageClass = {fg = orange_light, bold = true},
-	Structure = {fg = blue, bold = true},
+	Operator = {fg = COLOUR.green, bold = true},
+	Repeat = {fg = COLOUR.turqoise, italic = true},
+	Statement = {fg = COLOUR.ice},
+	StorageClass = {fg = COLOUR.orange_light, bold = true},
+	Structure = {fg = COLOUR.blue, bold = true},
 	Tag = 'Underlined',
-	Type = {fg = cyan},
-	Typedef = {fg = cyan, italic = true},
+	Type = {fg = COLOUR.cyan},
+	Typedef = {fg = COLOUR.cyan, italic = true},
 
 	-- Pre-processor
-	Define = {fg = blue, nocombine = true},
-	Include = {fg = green_light, nocombine = true},
-	Macro = {fg = blue, italic = true},
-	PreCondit = {fg = tan, italic = true},
-	PreProc = {fg = tan},
+	Define = {fg = COLOUR.blue, nocombine = true},
+	Include = {fg = COLOUR.green_light, nocombine = true},
+	Macro = {fg = COLOUR.blue, italic = true},
+	PreCondit = {fg = COLOUR.tan, italic = true},
+	PreProc = {fg = COLOUR.tan},
 
 	-- Special
-	Special = {fg = magenta, bold = true},
-	SpecialChar = {fg = red_light, italic = true},
-	SpecialComment = {fg = gray, bold = true, nocombine = true},
+	Special = {fg = COLOUR.magenta, bold = true},
+	SpecialChar = {fg = COLOUR.red_light, italic = true},
+	SpecialComment = {fg = COLOUR.gray, bold = true, nocombine = true},
 	SpecialKey = 'Character',
 
 	-- LSP
-	['@lsp.mod.constant'] = '@constant',
-	['@lsp.mod.readonly'] = '@lsp.mod.constant',
+	['@lsp.mod.consCOLOUR.tant'] = '@consCOLOUR.tant',
+	['@lsp.mod.readonly'] = '@lsp.mod.consCOLOUR.tant',
 	['@lsp.type.boolean'] = '@boolean',
 	['@lsp.type.character'] = '@character',
 	['@lsp.type.float'] = '@float',
@@ -324,66 +78,66 @@ colorscheme.highlight_all {
 	--[[ Editor UI ]]
 
 	-- Status Line
-	StatusLine = {fg = green_light, bg = gray_darker},
-	StatusLineNC = function(self) return {fg = gray, bg = self.StatusLine.bg} end,
+	StatusLine = {fg = COLOUR.green_light, bg = COLOUR.gray_darker},
+	StatusLineNC = function(self) return {fg = COLOUR.gray, bg = self.StatusLine.bg} end,
 	StatusLineTerm = 'StatusLine',
 	StatusLineTermNC = 'StatusLineNC',
 
 	-- Tabline
 	TabLine = function(self) return {fg = self.Normal.fg, bg = self.StatusLine.bg} end,
-	TabLineFill = {fg = black, bg = black},
-	TabLineSel = function(self) return {fg = self.TabLine.fg, bg = gray_dark} end,
+	TabLineFill = {fg = COLOUR.black, bg = COLOUR.black},
+	TabLineSel = function(self) return {fg = self.TabLine.fg, bg = COLOUR.gray_dark} end,
 
 	-- Line Highlighting
-	CursorLine = {bg = gray_dark},
-	CursorLineNr = function(self) return {fg = pink, bg = self.LineNr.bg} end,
-	LineNr = {fg = gray},
+	CursorLine = {bg = COLOUR.gray_dark},
+	CursorLineNr = function(self) return {fg = COLOUR.pink, bg = self.LineNr.bg} end,
+	LineNr = {fg = COLOUR.gray},
 	QuickFixLine = function(self) return {bg = self.StatusLine.bg} end,
 	Visual = {reverse = true},
-	VisualNOS = {bg = gray_darker},
+	VisualNOS = {bg = COLOUR.gray_darker},
 
 	-- Popups
-	FloatBorder = {fg = gray},
-	Pmenu = function(self) return {fg = self.Normal.fg, bg = gray_dark} end,
-	PmenuSbar = {bg = gray_darker},
-	PmenuSel = {fg = black, bg = gray_light},
-	PmenuThumb = {bg = white},
+	FloatBorder = {fg = COLOUR.gray},
+	Pmenu = function(self) return {fg = self.Normal.fg, bg = COLOUR.gray_dark} end,
+	PmenuSbar = {bg = COLOUR.gray_darker},
+	PmenuSel = {fg = COLOUR.black, bg = COLOUR.gray_light},
+	PmenuThumb = {bg = COLOUR.white},
 	WildMenu = 'PmenuSel',
 
 	-- Folds
-	FoldColumn = {bg = gray_darker, bold = true},
-	Folded = {fg = black, bg = purple_light, italic = true},
+	FoldColumn = {bg = COLOUR.gray_darker, bold = true},
+	Folded = {fg = COLOUR.black, bg = COLOUR.purple_light, italic = true},
 
 	-- Diffs
-	DiffAdd = {fg = black, bg = green_dark},
+	DiffAdd = {fg = COLOUR.black, bg = COLOUR.green_dark},
 	diffAdded = 'DiffAdd',
 	DiffChange = {},
-	DiffDelete = function(self) return {fg = self.DiffAdd.fg, bg = red} end,
-	DiffText = function(self) return {fg = self.DiffAdd.fg, bg = yellow} end,
+	DiffDelete = function(self) return {fg = self.DiffAdd.fg, bg = COLOUR.red} end,
+	DiffText = function(self) return {fg = self.DiffAdd.fg, bg = COLOUR.yellow} end,
 	diffRemoved = 'DiffDelete',
 
 	-- Searching
 	IncSearch = {reverse = true},
-	MatchParen = {fg = green, bold = true, underline = true},
-	Search = {sp = white, underline = true},
+	MatchParen = {fg = COLOUR.green, bold = true, underline = true},
+	Search = {sp = COLOUR.white, underline = true},
 
 	-- Spelling
-	SpellBad = {sp = red, undercurl = true},
-	SpellCap = {sp = yellow, undercurl = true},
-	SpellLocal = {sp = green, undercurl = true},
-	SpellRare = {sp = orange, undercurl = true},
+	SpellBad = {sp = COLOUR.red, undercurl = true},
+	SpellCap = {sp = COLOUR.yellow, undercurl = true},
+	SpellLocal = {sp = COLOUR.green, undercurl = true},
+	SpellRare = {sp = COLOUR.orange, undercurl = true},
 
 	-- Conditional Column Highlighting
 	ColorColumn = {reverse = true},
 	SignColumn = {},
 
 	-- Messages
-	Error = {fg = white, bg = red_dark, bold = true},
-	ErrorMsg = {fg = red, bold = true},
-	ModeMsg = {fg = yellow},
-	Question = {fg = orange_light, underline = true},
-	Todo = {fg = black, bg = cyan, bold = true},
-	WarningMsg = {fg = orange, bold = true},
+	Error = {fg = COLOUR.white, bg = COLOUR.red_dark, bold = true},
+	ErrorMsg = {fg = COLOUR.red, bold = true},
+	ModeMsg = {fg = COLOUR.yellow},
+	Question = {fg = COLOUR.orange_light, underline = true},
+	Todo = {fg = COLOUR.black, bg = COLOUR.cyan, bold = true},
+	WarningMsg = {fg = COLOUR.orange, bold = true},
 
 	-- Diagnostics
 	debugBreakpoint = 'ErrorMsg',
@@ -393,31 +147,31 @@ colorscheme.highlight_all {
 	DiagnosticFloatingError = 'ErrorMsg',
 	DiagnosticSignError = 'DiagnosticFloatingError',
 
-	DiagnosticWarn = {fg = black, bg = orange, bold = true},
+	DiagnosticWarn = {fg = COLOUR.black, bg = COLOUR.orange, bold = true},
 	DiagnosticFloatingWarn = 'WarningMsg',
 	DiagnosticSignWarn = 'DiagnosticFloatingWarn',
 
-	DiagnosticHint = {fg = black, bg = magenta, bold = true},
-	DiagnosticFloatingHint = {fg = magenta, italic = true},
+	DiagnosticHint = {fg = COLOUR.black, bg = COLOUR.magenta, bold = true},
+	DiagnosticFloatingHint = {fg = COLOUR.magenta, italic = true},
 	DiagnosticSignHint = 'DiagnosticFloatingHint',
 
-	DiagnosticInfo = {fg = black, bg = pink_light, bold = true},
-	DiagnosticFloatingInfo = {fg = pink_light, italic = true},
+	DiagnosticInfo = {fg = COLOUR.black, bg = COLOUR.pink_light, bold = true},
+	DiagnosticFloatingInfo = {fg = COLOUR.pink_light, italic = true},
 	DiagnosticSignInfo = 'DiagnosticFloatingInfo',
 
-	DiagnosticUnderlineError = {sp = red, undercurl = true},
-	DiagnosticUnderlineHint = {sp = magenta, undercurl = true},
-	DiagnosticUnderlineInfo = {sp = pink_light, undercurl = true},
-	DiagnosticUnderlineWarn = {sp = orange, undercurl = true},
+	DiagnosticUnderlineError = {sp = COLOUR.red, undercurl = true},
+	DiagnosticUnderlineHint = {sp = COLOUR.magenta, undercurl = true},
+	DiagnosticUnderlineInfo = {sp = COLOUR.pink_light, undercurl = true},
+	DiagnosticUnderlineWarn = {sp = COLOUR.orange, undercurl = true},
 
 	-- Cursor
 	Cursor = {reverse = true},
 	CursorIM = 'Cursor',
-	CursorColumn = {bg = gray_dark},
+	CursorColumn = {bg = COLOUR.gray_dark},
 
 	-- Misc
-	Directory = {fg = ice, bold = true},
-	WinSeparator = {fg = white},
+	Directory = {fg = COLOUR.ice, bold = true},
+	WinSeparator = {fg = COLOUR.white},
 
 	--[[ Programming Languages
 		Everything in this section is OPTIONAL. Feel free to remove everything
@@ -425,7 +179,7 @@ colorscheme.highlight_all {
 		missing. ]]
 
 	-- Coq
-	coqConstructor = 'Constant',
+	coqConstructor = 'ConsCOLOUR.tant',
 	coqDefBinderType = 'coqDefType',
 	coqDefContents1 = 'coqConstructor',
 	coqDefType = 'Typedef',
@@ -546,7 +300,7 @@ colorscheme.highlight_all {
 	goPackage = 'goStatement',
 	goParamType = 'goReceiverType',
 	goPointerOperator = 'StorageClass',
-	goPredefinedIdentifiers = 'Constant',
+	goPredefinedIdentifiers = 'ConsCOLOUR.tant',
 	goReceiver = 'goBlock',
 	goReceiverType = 'goTypeName',
 	goSimpleParams = 'goBlock',
@@ -645,7 +399,7 @@ colorscheme.highlight_all {
 	jsonBraces = 'luaBraces',
 	jsonEscape = 'SpecialChar',
 	jsonKeywordMatch = 'Operator',
-	jsonNull = 'Constant',
+	jsonNull = 'ConsCOLOUR.tant',
 	jsonQuote = 'Delimiter',
 	jsonString = 'String',
 	jsonStringSQError = 'Exception',
@@ -699,12 +453,12 @@ colorscheme.highlight_all {
 	markdownCode = 'mkdCode',
 	markdownCodeDelimiter = 'mkdCodeDelimiter',
 	markdownEscape = 'SpecialChar',
-	markdownH1 = {fg = red, bold = true},
-	markdownH2 = {fg = orange, bold = true},
-	markdownH3 = {fg = yellow, bold = true},
-	markdownH4 = {fg = green_dark, bold = true},
-	markdownH5 = {fg = cyan, bold = true},
-	markdownH6 = {fg = purple_light, bold = true},
+	markdownH1 = {fg = COLOUR.red, bold = true},
+	markdownH2 = {fg = COLOUR.orange, bold = true},
+	markdownH3 = {fg = COLOUR.yellow, bold = true},
+	markdownH4 = {fg = COLOUR.green_dark, bold = true},
+	markdownH5 = {fg = COLOUR.cyan, bold = true},
+	markdownH6 = {fg = COLOUR.purple_light, bold = true},
 	markdownLinkDelimiter = 'mkdDelimiter',
 	markdownLinkText = 'mkdLink',
 	markdownLinkTextDelimiter = 'markdownLinkDelimiter',
@@ -792,7 +546,7 @@ colorscheme.highlight_all {
 	razorhtmlValueDelimiter = 'Delimiter',
 	razorIf = 'PreCondit',
 	razorImplicitExpression = 'PreProc',
-	razorLine = 'Constant',
+	razorLine = 'ConsCOLOUR.tant',
 	razorUsing = 'Include',
 
 	-- Ruby
@@ -834,7 +588,7 @@ colorscheme.highlight_all {
 	-- SQL
 	sqlKeyword = 'Keyword',
 	sqlParen = 'Delimiter',
-	sqlSpecial = 'Constant',
+	sqlSpecial = 'ConsCOLOUR.tant',
 	sqlStatement = 'Statement',
 	sqlParenFunc = 'Function',
 
@@ -860,7 +614,7 @@ colorscheme.highlight_all {
 	-- VimScript
 	vimCmdSep = 'Delimiter',
 	vimFunction = 'Function',
-	vimFgBgAttrib = 'Constant',
+	vimFgBgAttrib = 'ConsCOLOUR.tant',
 	vimHiCterm = 'Label',
 	vimHiCtermFgBg = 'vimHiCterm',
 	vimHiGroup = 'Typedef',
@@ -903,22 +657,22 @@ colorscheme.highlight_all {
 
 	-- barbar.nvim
 	BufferAlternate = function(self) return {fg = self.BufferVisible.fg, bg = self.TabLine.bg} end,
-	BufferAlternateERROR = function(self) return {fg = self.ErrorMsg.fg, bg = gray_dark} end,
-	BufferAlternateHINT = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = gray_dark} end,
-	BufferAlternateIndex = function(self) return {fg = self.Number.fg, bg = gray_dark} end,
-	BufferAlternateINFO = function(self) return {fg = self.DiagnosticFloatingInfo.fg, bg = gray_dark} end,
-	BufferAlternateMod = function(self) return {fg = self.BufferVisibleMod.fg, bg = gray_dark, bold = true} end,
+	BufferAlternateERROR = function(self) return {fg = self.ErrorMsg.fg, bg = COLOUR.gray_dark} end,
+	BufferAlternateHINT = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = COLOUR.gray_dark} end,
+	BufferAlternateIndex = function(self) return {fg = self.Number.fg, bg = COLOUR.gray_dark} end,
+	BufferAlternateINFO = function(self) return {fg = self.DiagnosticFloatingInfo.fg, bg = COLOUR.gray_dark} end,
+	BufferAlternateMod = function(self) return {fg = self.BufferVisibleMod.fg, bg = COLOUR.gray_dark, bold = true} end,
 	BufferAlternateSign = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = self.BufferAlternate.bg} end,
-	BufferAlternateTarget = function(self) return {fg = self.BufferAlternateSign.fg, bg = gray_dark, italic = true} end,
-	BufferAlternateWARN = function(self) return {fg = self.WarningMsg.fg, bg = gray_dark} end,
+	BufferAlternateTarget = function(self) return {fg = self.BufferAlternateSign.fg, bg = COLOUR.gray_dark, italic = true} end,
+	BufferAlternateWARN = function(self) return {fg = self.WarningMsg.fg, bg = COLOUR.gray_dark} end,
 
 	BufferCurrent = 'TabLineSel',
 	BufferCurrentERROR = function(self) return {fg = self.ErrorMsg.fg, bg = self.BufferCurrent.bg} end,
 	BufferCurrentHINT = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = self.BufferCurrent.bg} end,
 	BufferCurrentIndex = function(self) return {fg = self.Number.fg, bg = self.BufferCurrent.bg} end,
 	BufferCurrentINFO = function(self) return {fg = self.DiagnosticFloatingInfo.fg, bg = self.BufferCurrent.bg} end,
-	BufferCurrentMod = {fg = tan, bg = black, bold = true},
-	BufferCurrentSign = function(self) return {fg = teal, bg = self.BufferCurrent.bg} end,
+	BufferCurrentMod = {fg = COLOUR.tan, bg = COLOUR.black, bold = true},
+	BufferCurrentSign = function(self) return {fg = COLOUR.teal, bg = self.BufferCurrent.bg} end,
 	BufferCurrentTarget = 'BufferCurrentSign',
 	BufferCurrentWARN = function(self) return {fg = self.WarningMsg.fg, bg = self.BufferCurrent.bg} end,
 
@@ -940,7 +694,7 @@ colorscheme.highlight_all {
 	BufferVisibleHINT = function(self) return {fg = self.DiagnosticFloatingHint.fg, bg = self.BufferVisible.bg} end,
 	BufferVisibleIndex = function(self) return {fg = self.Number.fg, bg = self.BufferVisible.bg} end,
 	BufferVisibleINFO = function(self) return {fg = self.DiagnosticFloatingInfo.fg, bg = self.BufferVisible.bg} end,
-	BufferVisibleMod = function(self) return {fg = white, bg = self.BufferVisible.bg, italic = true} end,
+	BufferVisibleMod = function(self) return {fg = COLOUR.white, bg = self.BufferVisible.bg, italic = true} end,
 	BufferVisibleSign = function(self)
 		local definition = self.BufferVisibleMod
 		return {fg = definition.fg, bg = definition.bg, bold = true}
@@ -990,7 +744,7 @@ colorscheme.highlight_all {
 	LazyReasonKeys = 'String',
 	LazyReasonPlugin = 'Label',
 	LazyReasonSource = 'Include',
-	LazyReasonStart = 'Constant',
+	LazyReasonStart = 'ConsCOLOUR.tant',
 	LazySpecial = 'Special',
 	LazyTaskOutput = 'Statement',
 	LazyUrl = 'Underlined',
@@ -1022,11 +776,11 @@ colorscheme.highlight_all {
 	CmpItemAbbrMatchFuzzy = function(self) return {fg = self.Normal.fg, nocombine = true, underline = true} end,
 	CmpItemKindClass = 'CmpItemKindStruct',
 	CmpItemKindsp = 'Label',
-	CmpItemKindConstant = 'Constant',
+	CmpItemKindConstant = 'ConsCOLOUR.tant',
 	CmpItemKindConstructor = 'CmpItemKindMethod',
 	CmpItemKind = 'Type',
 	CmpItemKindEnum = 'CmpItemKindStruct',
-	CmpItemKindEnumMember = 'CmpItemKindConstant',
+	CmpItemKindEnumMember = 'CmpItemKindConsCOLOUR.tant',
 	CmpItemKindEvent = 'Repeat',
 	CmpItemKindField = 'Identifier',
 	CmpItemKindFile = 'Directory',
@@ -1044,17 +798,17 @@ colorscheme.highlight_all {
 	CmpItemKindText = 'String',
 	CmpItemKindTypeParameter = 'Typedef',
 	CmpItemKindUnit = 'CmpItemKindStruct',
-	CmpItemKindValue = 'CmpItemKindConstant',
+	CmpItemKindValue = 'CmpItemKindConsCOLOUR.tant',
 	CmpItemKindVariable = 'Identifier',
 
 	-- nvim-tree
 	NvimTreeGitDeleted = function(self) return {fg = self.DiffDelete.bg} end,
-	NvimTreeGitDirty = {fg = orange},
+	NvimTreeGitDirty = {fg = COLOUR.orange},
 	NvimTreeGitIgnored = 'Ignore',
 	NvimTreeGitMerge = 'NvimTreeGitRenamed',
 	NvimTreeGitNew = function(self) return {fg = self.DiffAdd.bg} end,
 	NvimTreeGitRenamed = function(self) return {fg = self.DiffChange.bg} end,
-	NvimTreeGitStaged = {fg = cyan},
+	NvimTreeGitStaged = {fg = COLOUR.cyan},
 
 	-- packer.nvim
 	packerFail = 'ErrorMsg',
@@ -1065,7 +819,7 @@ colorscheme.highlight_all {
 	packerSuccess = function(self)
 		local definition = vim.deepcopy(self.packerFail)
 		definition.bg = nil
-		definition.fg = green
+		definition.fg = COLOUR.green
 		return definition
 	end,
 
@@ -1075,18 +829,18 @@ colorscheme.highlight_all {
 
 	-- todo-comments.nvim
 	TodoFgFIX = function(self) return {fg = self.ErrorMsg.fg} end,
-	TodoFgHACK = {fg = yellow},
+	TodoFgHACK = {fg = COLOUR.yellow},
 	TodoFgNOTE = 'DiagnosticFloatingHint',
 	TodoFgPERF = 'DiagnosticFloatingInfo',
 	TodoFgTODO = function(self) return {fg = self.Todo.bg, italic = true} end,
 	TodoFgWARN = function(self) return {fg = self.WarningMsg.fg} end,
 
-	TodoBgFIX = function(self) return {fg = black, bg = self.TodoFgFIX.fg, bold = true, italic = true, nocombine = true} end,
-	TodoBgHACK = function(self) return {fg = black, bg = self.TodoFgHACK.fg, bold = true, italic = true, nocombine = true} end,
-	TodoBgNOTE = function(self) return {fg = black, bg = self.TodoFgNOTE.fg, bold = true, italic = true, nocombine = true} end,
-	TodoBgPERF = function(self) return {fg = black, bg = self.TodoFgPERF.fg, bold = true, italic = true, nocombine = true} end,
-	TodoBgTODO = function(self) return {fg = black, bg = self.TodoFgTODO.fg, bold = true, italic = true, nocombine = true} end,
-	TodoBgWARN = function(self) return {fg = black, bg = self.TodoFgWARN.fg, bold = true, italic = true, nocombine = true} end,
+	TodoBgFIX = function(self) return {fg = COLOUR.black, bg = self.TodoFgFIX.fg, bold = true, italic = true, nocombine = true} end,
+	TodoBgHACK = function(self) return {fg = COLOUR.black, bg = self.TodoFgHACK.fg, bold = true, italic = true, nocombine = true} end,
+	TodoBgNOTE = function(self) return {fg = COLOUR.black, bg = self.TodoFgNOTE.fg, bold = true, italic = true, nocombine = true} end,
+	TodoBgPERF = function(self) return {fg = COLOUR.black, bg = self.TodoFgPERF.fg, bold = true, italic = true, nocombine = true} end,
+	TodoBgTODO = function(self) return {fg = COLOUR.black, bg = self.TodoFgTODO.fg, bold = true, italic = true, nocombine = true} end,
+	TodoBgWARN = function(self) return {fg = COLOUR.black, bg = self.TodoFgWARN.fg, bold = true, italic = true, nocombine = true} end,
 
 	TodoSignFIX = 'TodoFgFIX',
 	TodoSignHACK = 'TodoFgHACK',
@@ -1106,14 +860,14 @@ colorscheme.highlight_all {
 	EasyMotion = 'IncSearch',
 
 	-- vim-gitgutter
-	GitGutterAdd = {fg = green},
-	GitGutterChange = {fg = yellow},
-	GitGutterDelete = {fg = red},
-	GitGutterChangeDelete = {fg = orange},
+	GitGutterAdd = {fg = COLOUR.green},
+	GitGutterChange = {fg = COLOUR.yellow},
+	GitGutterDelete = {fg = COLOUR.red},
+	GitGutterChangeDelete = {fg = COLOUR.orange},
 
 	-- vim-indent-guides
-	IndentGuidesOdd = {bg = gray_darker},
-	IndentGuidesEven = {bg = gray},
+	IndentGuidesOdd = {bg = COLOUR.gray_darker},
+	IndentGuidesEven = {bg = COLOUR.gray},
 
 	-- vim-jumpmotion
 	JumpMotion = 'EasyMotion',
@@ -1127,120 +881,3 @@ colorscheme.highlight_all {
 	SignifySignDelete = 'GitGutterDelete',
 	SignifySignChangeDelete = 'GitGutterChangeDelete',
 }
-
---[[ Step 5: Terminal Colors
-	Define the color palette used by :terminal when in GUI Vim
-	or in TUI Vim when 'termguicolors' is enabled. If this list
-	is empty or if it doesn't contain exactly 16 items, the corresponding
-	Vim variable won't be set.
-
-	The expected values are colors defined in step 3.
-
-	Terminal emulators use a basic palette of 16 colors that can be
-	addressed by CLI and TUI tools via their name or their index, from
-	0 to 15. The list is not really standardized but it is generally
-	assumed to look like this:
-
-	 | Index  | Name          |
-	 |:------:|:-------------:|
-	 | 1      | black         |
-	 | 2      | darkred       |
-	 | 3      | darkgreen     |
-	 | 4      | darkyellow    |
-	 | 5      | darkblue      |
-	 | 6      | darkmagenta   |
-	 | 7      | darkcyan      |
-	 | 8      | gray          |
-	 | 9      | darkgray      |
-	 | 10     | red           |
-	 | 11     | green         |
-	 | 12     | yellow        |
-	 | 13     | blue          |
-	 | 14     | magenta       |
-	 | 15     | cyan          |
-	 | 16     | white         |
-
-	While you are certainly free to make colors 0 to 7 shades of blue,
-	this will inevitably cause usability issues so… be careful.
-]]
-
-colorscheme.highlight_terminal {
-	[1] = black,
-	[2] = red_dark,
-	[3] = green_dark,
-	[4] = orange,
-	[5] = blue,
-	[6] = magenta_dark,
-	[7] = teal,
-	[8] = gray,
-	[9] = gray_dark,
-	[10] = red,
-	[11] = green,
-	[12] = yellow,
-	[13] = turqoise,
-	[14] = purple,
-	[15] = cyan,
-	[16] = gray_light,
-}
-
---[[ Step 5: Sourcing
-	When you wish to load your colorscheme, simply add this folder with a plugin manager
-	and then use `colorscheme <your colorscheme name>`. For example, in my configuration,
-	I source highlite by using `colorscheme highlite`.
-
-	These online resources can help you design your colorscheme:
-
-	1. the xterm palette.
-		* http://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
-	2. play with hexadecimal colors right in the address bar (currently down).
-		* http://whatcolor.herokuapp.com/
-	3. similar concept, fuzzier implementation.
-		* http://color.hailpixel.com/
-	4. similar concept, fancier implementation.
-		* http://colourco.de/
-	5. extract a palette from an image.
-		* http://www.colr.org/
-	6. search for 'word', get images and color palettes.
-		* http://colores.manugarri.com/
-	7. user-created palettes.
-		* http://www.colourlovers.com/palettes
-	8. a no-nonsense colorscheme generator.
-		* http://www.pluaang.dk/color+scheme/
-	9. Adobe's fancy colorscheme generator.
-		* https://color.adobe.com/
-	10. The classic 'Color Scheme Designer', rebranded.
-		* http://paletton.com/
-	11. A very smart palette generator.
-		* http://vrl.cs.brown.edu/color
-	12. 'I Made My Own Colour Scheme and You Can Too!'.
-		* https://cmcenroe.me/2018/04/03/colour-scheme.html
-
-	A few things to note:
-
-	* The Windows console (`cmd`) is limited to the 16 so-called 'ANSI' colors but it used to
-			have a few of them interverted which makes numbers impractical. Use color names
-			instead of numbers: :help cterm-colors
-		* The Windows console doesn't do italics, underlines or bolded text;
-			it is limited to normal and reverse. Keep that in mind if you want
-			your colorscheme to be usable in as many environments as possible by as many
-			people as possible.
-		* The Windows TERMINAL, however, is capable of more.
-	* All of the terminal emulators in use these days allow their users to
-		change the 16 so-called 'ANSI' colors. It is also possible on some platforms
-		to change some or all of the 256 colors in the xterm palette. Don't take
-		anything for granted.
-	* When used against a light background, strong colors work better than muted
-		ones. Light or dark doesn't really matters. Also, it is harder to discriminate
-		between two similar colors on a light background.
-	* Both strong and muted colors work well against a dark background. It is also
-		easier to work with similar colors, but dark colors don't work at all.
-	* Use as many text samples as possible. String-heavy languages may look completely
-		different than keyword-heavy ones. This can have an impact on the usability
-		of your colorscheme.
-	* Most terminal emulators and terminal multiplexers currently in use on unix-like
-		systems support 256 colors but they almost always default to a '$TERM' that tells
-		Vim otherwise. Your users will need to make sure their terminal emulator/multiplexer
-		is correctly set up if they want to enjoy the best possible experience.
-]]
-
--- Thanks to Romain Lafourcade (https://github.com/romainl) for the original template (romainl/vim-rnb).

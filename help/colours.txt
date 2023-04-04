@@ -1,0 +1,20 @@
+Colors
+Here you define all of the colors that you will use for the color scheme. Each one is made up of three parts:
+
+```lua
+<color name> = { -- Give each color a distinctive name.
+	'#<hex color code>', -- Hexadecimal color used in GVim/MacVim
+	<8-bit color code>, -- Integer 0–255 used by terminals supporting 256 colors
+	'<ANSI color name>'  -- color name used by less capable color terminals, can be 'darkred',
+								  'red', 'darkgreen', 'green', 'darkyellow', 'yellow', 'darkblue',
+								  'blue', 'darkmagenta', 'magenta', 'black', 'darkgrey', 'grey',
+								  'white'
+}
+```
+
+NOTE: See https://gist.github.com/gagbo/7943c9a71cab22b641d2904a6d59ec3a
+		for a program that can generate 16-bit colors from a Hex code.
+
+If your colors are defined correctly, the resulting colorscheme is guaranteed
+to work in GVim (Windows/Linux), MacVim (MacOS), and any properly set up terminal
+emulator. Type errors in the definition will show up as LSP diagnostics.

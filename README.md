@@ -1,4 +1,4 @@
-# nvim-highlite
+# nvim-arcoiris
 
 ## Default Settings Preview
 
@@ -6,7 +6,7 @@
 
 ## Introduction
 
-`nvim-highlite` is a colorscheme template repository with great defaults.
+`nvim-arcoiris` is a colorscheme template repository with great defaults.
 
 This template's _defaults_ focus on:
 
@@ -32,12 +32,12 @@ This template's _design_ focuses on:
 
 ### Creating Your Own
 
-1. Fork this repository, or clone it with `git clone https://github.com/Iron-E/nvim-highlite`.
-2. Follow the instructions in [`colors/highlite.vim`](colors/highlite.vim).
+1. Fork this repository, or clone it with `git clone https://github.com/Iron-E/nvim-arcoiris`.
+2. Follow the instructions in [`colors/arcoiris.vim`](colors/arcoiris.vim).
   * If you are on a Unix system, use the [setup script](setup.sh) like so:
   ```sh
   chmod +x ./setup.sh
-  ./setup.sh highlite <colorscheme>
+  ./setup.sh arcoiris <colorscheme>
   ```
   Where `<colorscheme>` is the name of your desired colorscheme.
   * If you are on Windows, rename the files manually.
@@ -52,17 +52,17 @@ I recommend using [lazy.nvim](https://github.com/folke/lazy.nvim):
 
 ```lua
 require('lazy').setup {
-  {'Iron-E/nvim-highlite',
+  {'Iron-E/nvim-arcoiris',
     init = function() -- NOTE: optional; override highlights
       vim.api.nvim_create_autocmd('ColorScheme', {
         callback = function() vim.api.nvim_set_hl(…) end,
         group = vim.api.nvim_create_augroup('config', {clear = false}),
-        pattern = 'highlite',
+        pattern = 'arcoiris',
       })
     end,
     config = function()
       vim.opt.termguicolors = true -- NOTE: optional; enable truecolor support
-      vim.api.nvim_command 'colorscheme highlite'
+      vim.api.nvim_command 'colorscheme arcoiris'
     end,
     lazy = false,
     priority = 1000,
@@ -86,7 +86,7 @@ require('lazy').setup {
 
   return require('packer').startup {function(use)
     use {'wbthomason/packer.nvim', opt = true}
-    use {'Iron-E/nvim-highlite', branch = 'master-v3'}
+    use {'Iron-E/nvim-arcoiris', branch = 'master-v3'}
   end}
   ```
 2. Specify this colorscheme as your default colorscheme in the `init.vim`:
@@ -95,19 +95,19 @@ require('lazy').setup {
   " This plugin is fully compatible with 8-bit, 16-bit, and 24-bit colors.
   set termguicolors
   " Use the colorscheme
-  colorscheme highlite
+  colorscheme arcoiris
   ```
   Or using `init.lua`:
   ```lua
   vim.opt.termguicolors = true
-  vim.api.nvim_command 'colorscheme highlite'
+  vim.api.nvim_command 'colorscheme arcoiris'
   ```
 
 ## Usage
 
-This repository in itself is an example of how to use `nvim-highlite`. Aside from this, the following colorschemes are built using `nvim-highlite`:
+This repository in itself is an example of how to use `nvim-arcoiris`. Aside from this, the following colorschemes are built using `nvim-arcoiris`:
 
-* [nord-lite](https://github.com/NarutoXY/nvim-highlite)
+* [nord-lite](https://github.com/NarutoXY/nvim-arcoiris)
 * [nvim-deus](https://github.com/tandy1229/nvim-deus)
 * [nvim-deus](https://github.com/theniceboy/nvim-deus)
 * [nvim-soluarized](https://github.com/Iron-E/nvim-soluarized)
@@ -116,13 +116,13 @@ This repository in itself is an example of how to use `nvim-highlite`. Aside fro
 
 ### As Dependency
 
-Below is an example of how to use `nvim-highlite` as a dependency.
+Below is an example of how to use `nvim-arcoiris` as a dependency.
 
-* See `:h highlite-usage` for more.
+* See `:h arcoiris-usage` for more.
 
 ```lua
--- Import nvim-highlite
-local highlite = require('highlite')
+-- Import nvim-arcoiris
+local arcoiris = require('arcoiris')
 
 -- First, define some colors
 local red = {'#FF0000', 1, 'red'}
@@ -130,24 +130,24 @@ local black = {'#000000', 0, 'black'}
 local white = {'#FFFFFF', 255, 'white'}
 
 -- Highlight 'Identifier'
-highlite.highlight('Identifier', {bg = red, fg = black, bold = true})
+arcoiris.highlight('Identifier', {bg = red, fg = black, bold = true})
 
 -- Highlight 'Function' conditionally according to background color.
-highlite.highlight('Function', {bg = black, fg = red, light = {bg = white}})
+arcoiris.highlight('Function', {bg = black, fg = red, light = {bg = white}})
 
 -- Link 'Example' to 'Identifier'
-highlite.highlight('Example', 'Identifier')
-highlite.highlight('Example2', {link = 'Identifier'})
+arcoiris.highlight('Example', 'Identifier')
+arcoiris.highlight('Example2', {link = 'Identifier'})
 
 -- You can also reference specific attributes of another highlight group.
-highlite.highlight('AnotherExample', {bg = highlite.group('SpellBad').bg, fg = white})
+arcoiris.highlight('AnotherExample', {bg = arcoiris.group('SpellBad').bg, fg = white})
 ```
 
 ### As Template
 
-Below is an example of how to use `nvim-highlite` as a template.
+Below is an example of how to use `nvim-arcoiris` as a template.
 
-* See [`highlite.vim`](colors/highlite.vim) for more.
+* See [`arcoiris.vim`](colors/arcoiris.vim) for more.
 
 ```lua
 -- First, define some colors
@@ -181,7 +181,7 @@ local highlight_groups = {
 When using this plugin, it is important to know that you can't just run `:hi` on a highlight group and expect that its changes will be retained. You must attach them to the `ColorScheme` `autocmd` event, as shown below:
 
 ```vim
-packadd nvim-highlite
+packadd nvim-arcoiris
 set termguicolors "optional
 
 " WARN: don't do this!
@@ -189,15 +189,15 @@ hi! Error guifg=#000000 guibg=#FFFFFF
 
 " NOTE: do this instead
 augroup Highlite
-  " You can also use `highlite.highlight()` instead of `:hi!`
-  autocmd ColorScheme highlite hi! Error guifg=#000000 guibg=#FFFFFF
+  " You can also use `arcoiris.highlight()` instead of `:hi!`
+  autocmd ColorScheme arcoiris hi! Error guifg=#000000 guibg=#FFFFFF
 augroup end
 
-colorscheme highlite
+colorscheme arcoiris
 ```
 
 ```lua
-vim.api.nvim_command 'packadd nvim-highlite'
+vim.api.nvim_command 'packadd nvim-arcoiris'
 vim.api.nvim_set_option('termguicolors', true)
 
 -- WARN: don't do this!
@@ -210,13 +210,13 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     -- other groups
   end,
   group = vim.api.nvim_create_augroup('config', {clear = true}),
-  pattern = 'highlite',
+  pattern = 'arcoiris',
 })
 
-vim.api.nvim_command 'colorscheme highlite'
+vim.api.nvim_command 'colorscheme arcoiris'
 ```
 
-Of course, substitute `highlite` with the name of your colorscheme.
+Of course, substitute `arcoiris` with the name of your colorscheme.
 
 > Why am I receiving `E5108: Error executing lua [string ":lua"]:1: module '<colorscheme>' not found`?
 

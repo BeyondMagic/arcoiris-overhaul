@@ -1,36 +1,36 @@
-*highlite.txt*        Plugin for maintaining colorschemes
-*highlite*
+*arcoiris.txt*        Plugin for maintaining colorschemes
+*arcoiris*
 
 Author: Iron-E – https://github.com/Iron-E & https://gitlab.com/Iron_E
-Web: https://github.com/Iron-E/nvim-highlite
+Web: https://github.com/Iron-E/nvim-arcoiris
 
-|highlite| is a plugin for creating and maintaining colorschemes. It can
+|arcoiris| is a plugin for creating and maintaining colorschemes. It can
 be configured by cloning the repository and following the README, or
 individually used to comprehensively highlight groups with its functions.
 
 ==============================================================================
-TABLE OF CONTENTS                                                 *highlite-toc*
+TABLE OF CONTENTS                                                 *arcoiris-toc*
 
-1. Requirements ............ |highlite-requirements|
-2. Usage ................... |highlite-usage|
-3. FAQ ..................... |highlite-faq|
+1. Requirements ............ |arcoiris-requirements|
+2. Usage ................... |arcoiris-usage|
+3. FAQ ..................... |arcoiris-faq|
 
 ==============================================================================
-REQUIREMENTS                                          *highlite-requirements*
+REQUIREMENTS                                          *arcoiris-requirements*
 
 - Neovim 0.7+
 
 ==============================================================================
-USAGE                                                           *highlite-usage*
+USAGE                                                           *arcoiris-usage*
 
-`highlite`.group({group_name} [, {link}])                       *highlite.group()*
+`arcoiris`.group({group_name} [, {link}])                       *arcoiris.group()*
 
-	Convert a pre-existing |highlight-group| into a format that |highlite|
+	Convert a pre-existing |highlight-group| into a format that |arcoiris|
 	recognizes.
 
 	Note: the |highlight-group| must have been either,
 		- |:highlight|ed.
-		- |highlite.highlight()|ed.
+		- |arcoiris.highlight()|ed.
 
 	Parameters: ~
 		{group_name}  A `string` which is the |highlight-group| to convert.
@@ -38,20 +38,20 @@ USAGE                                                           *highlite-usage*
 		              than the full definition. Requires Neovim 0.9
 
 	Return: ~
-		- The {definition} parameter for |highlite.highlight()|.
+		- The {definition} parameter for |arcoiris.highlight()|.
 
 	Example: ~
 >
-	local highlite = require('highlite')
+	local arcoiris = require('arcoiris')
 
 	-- get the 'Error' highlight group
-	local hl_error = highlite.group('Error')
+	local hl_error = arcoiris.group('Error')
 
 	-- Define 'ErrorMsg' as foreground = background of 'Error'
-	highlite.highlight('ErrorMsg', {fg=hl_error.bg, bg=BG})
+	arcoiris.highlight('ErrorMsg', {fg=hl_error.bg, bg=BG})
 <
 
-`highlite`.highlight({group}, {definition})                 *highlite.highlight()*
+`arcoiris`.highlight({group}, {definition})                 *arcoiris.highlight()*
 
 	Highlight some {group} according to its {definition}.
 
@@ -88,7 +88,7 @@ USAGE                                                           *highlite-usage*
 			[, underline = true|false]
 		}
 <		              Can also be a :|highlight-link|: >
-		'GroupName' -- highlite style
+		'GroupName' -- arcoiris style
 		{link = 'GroupName'} -- Nvim API style
 <
 
@@ -97,8 +97,8 @@ USAGE                                                           *highlite-usage*
 
 	Example: ~
 >
-		-- Import nvim-highlite
-		local highlite = require('highlite')
+		-- Import nvim-arcoiris
+		local arcoiris = require('arcoiris')
 
 		-- First, define some colors
 		local red = {'#FF0000', 1, 'red'}
@@ -106,26 +106,26 @@ USAGE                                                           *highlite-usage*
 		local white = {'#FFFFFF', 255, 'white'}
 
 		-- Highlight 'Identifier'
-		highlite.highlight('Identifier', {
+		arcoiris.highlight('Identifier', {
 			bg = red,
 			fg = black,
 			bold = true,
 		})
 
 		-- Highlight 'Function' conditionally according to background color.
-		highlite.highlight('Function', {
+		arcoiris.highlight('Function', {
 			bg = black,
 			fg = red,
 			light = {bg = white},
 		})
 
 		-- Link 'Example' to 'Identifier' (both calls are equivalent)
-		highlite.highlight('Example', 'Identifier')
-		highlite.highlight('Example', {link = 'Identifier'})
+		arcoiris.highlight('Example', 'Identifier')
+		arcoiris.highlight('Example', {link = 'Identifier'})
 
 		-- reference specific attributes of another highlight group.
-		highlite.highlight('AnotherExample', {
-			bg = highlite.group('SpellBad').bg,
+		arcoiris.highlight('AnotherExample', {
+			bg = arcoiris.group('SpellBad').bg,
 			fg = white,
 		})
 <
@@ -136,14 +136,14 @@ USAGE                                                           *highlite-usage*
 		|treesitter-highlight-groups|  Treesitter semantic highlighting groups.
 		|lsp-semantic-highlight|  LSP semantic highlighting groups.
 
-                                                      *highlite.highlight_all()*
-`highlite`.highlight_all({groups})
+                                                      *arcoiris.highlight_all()*
+`arcoiris`.highlight_all({groups})
 
-	Process all of the {groups}, and then |highlite.highlight()| them.
+	Process all of the {groups}, and then |arcoiris.highlight()| them.
 
 	Parameters: ~
 		{groups}  A |lua| `table` keyed on the group name, with the value set to
-		          the {definition} (see |highlite.highlight()|) of the group.
+		          the {definition} (see |arcoiris.highlight()|) of the group.
 
 					 A key's value can also be a `function` which accepts one
 					 parameter, which can be used to access other groups'
@@ -158,7 +158,7 @@ USAGE                                                           *highlite-usage*
 		local black = {'#000000', 0, 'black'}
 		local white = {'#FFFFFF', 255, 'white'}
 
-		require('highlite').highlight_all {
+		require('arcoiris').highlight_all {
 			-- Any field which can be set to "NONE" doesn't need to be set
 			Identifier = {fg = black, bold = true},
 
@@ -179,10 +179,10 @@ USAGE                                                           *highlite-usage*
 <
 
 	See also: ~
-		|highlite.highlight()|  For how the {definition} should be formed
+		|arcoiris.highlight()|  For how the {definition} should be formed
 
-                                                 *highlite-highlight_terminal()*
-`highlite`.highlight_terminal({terminal_ansi_colors})
+                                                 *arcoiris-highlight_terminal()*
+`arcoiris`.highlight_terminal({terminal_ansi_colors})
 
 	Override the |terminal| colors with a new table of {terminal_ansi_colors}.
 
@@ -214,7 +214,7 @@ USAGE                                                           *highlite-usage*
 
 	Example: ~
 >
-		require('highlite'):highlight_terminal {
+		require('arcoiris'):highlight_terminal {
 			[1]  = {'#202020' , 0   , 'black'},
 			[2]  = {'#a80000' , 124 , 'darkred'},
 			[3]  = {'#50de60' , 83  , 'darkgreen'},
@@ -238,7 +238,7 @@ USAGE                                                           *highlite-usage*
 		|terminal-configuration|  Information about how the groups are set.
 
 ==============================================================================
-FAQ                                                             *highlite-faq*
+FAQ                                                             *arcoiris-faq*
 
 E5108: Error executing lua [string ":lua"]:1: module '<colorscheme>' not found ~
 
@@ -249,7 +249,7 @@ Override the highlighting of one specific highlight group in my init.vim? ~
 When using this plugin, it is important to know that you cannot just run `:hi`
 on a highlight group and expect that its changes will be retained. You must
 attach them to the |ColorScheme| |autocmd-event|, as shown below: >
-	packadd nvim-highlite
+	packadd nvim-arcoiris
 	set termguicolors "optional
 
 	" WRONG! Don't do this.
@@ -257,15 +257,15 @@ attach them to the |ColorScheme| |autocmd-event|, as shown below: >
 
 	" Do this instead.
 	augroup Highlite
-		" You can also use `highlite.highlight()` instead of `:hi!`
-		autocmd ColorScheme highlite hi! Error guifg=#000000 guibg=#FFFFFF
+		" You can also use `arcoiris.highlight()` instead of `:hi!`
+		autocmd ColorScheme arcoiris hi! Error guifg=#000000 guibg=#FFFFFF
 	augroup end
 
-	colorscheme highlite
+	colorscheme arcoiris
 <
 
 Or, in lua: >
-	vim.api.nvim_command 'packadd nvim-highlite'
+	vim.api.nvim_command 'packadd nvim-arcoiris'
 	vim.api.nvim_set_option('termguicolors', true)
 
 	-- WARN: don't do this!
@@ -278,13 +278,13 @@ Or, in lua: >
 		 -- other groups
 	  end,
 	  group = vim.api.nvim_create_augroup('config', {clear = true}),
-	  pattern = 'highlite',
+	  pattern = 'arcoiris',
 	})
 
-	vim.api.nvim_command 'colorscheme highlite'
+	vim.api.nvim_command 'colorscheme arcoiris'
 <
 
-Of course, substitute `highlite` with the name of your colorscheme.
+Of course, substitute `arcoiris` with the name of your colorscheme.
 
 ===============================================================================
  vim:tw=78:noexpandtab:ft=help:norl:

@@ -1,0 +1,119 @@
+
+Highlights
+You can define highlight groups like this:
+
+```lua
+<highlight group name> = {
+	-- The color for the background, or `nil`
+	bg = <color>,
+
+	-- The color for the foreground, or `nil`
+	fg = <color>
+
+	-- The |guisp| value, if one is desired.
+	[, sp = <color>]
+
+	-- The |highlight-blend| value, if one is desired.
+	[, blend = <integer>]
+
+	-- Bold, italic, and more. See |attr-list| for more information.
+	[, bold = true|false]
+	[, default = true|false]
+	[, italic = true|false]
+	[, nocombine = true|false]
+	[, reverse = true|false]
+	[, standout = true|false]
+	[, strikethrough = true|false]
+	[, undercurl = true|false]
+	[, underdashed = true|false]
+	[, underdotted = true|false]
+	[, underdouble = true|false]
+	[, underline = true|false]
+}
+```
+
+You can also link one highlight group to another, using whatever style you prefer:
+
+```lua
+<highlight group name> = '<highlight group name>' -- arcoiris style
+<highlight group name> = {link = '<highlight group name>'} -- nvim API style
+```
+____________________________________________________________________________
+
+Here is an example to define `SpellBad` and then link some new group
+`SpellWorse` to it:
+
+```lua
+SpellBad = { -- ← name of the highlight group
+	bg = nil, -- no background
+	fg = white, -- white foreground
+	sp = red, -- red underline
+	undercurl = true, -- squiggly line
+},
+
+SpellWorse = 'SpellBad' -- link SpellWorse to SpellBad
+```
+
+If you weren't satisfied with undercurl, and also wanted another effect, you can
+add another one below 'undercurl' and it will be applied as well:
+
+```lua
+SpellBad = { -- ← name of the highlight group
+	bg = nil, -- no background
+	fg = white, -- white foreground
+	sp = red, -- red underline
+	standout = true,
+	undercurl = true, -- squiggly line
+},
+```
+____________________________________________________________________________
+
+If you want to create a colorscheme that is responsive to the user's
+'background' setting, you can specify special `light` and `dark` keys to
+define how each group should be highlighted in each case.
+
+```lua
+SpellBad = {
+	bg = nil,
+	dark = {fg = white},
+	light = {fg = black},
+	sp = red,
+	undercurl = true,
+}
+```
+
+Whenever the user changes their 'background' setting, the settings inside of
+whichever key is relevant will be loaded.
+____________________________________________________________________________
+
+You can add any custom highlight group to the standard list below but you
+shouldn't remove any if you want a working colorscheme. Most of them are
+described under |highlight-default|, some from |group-name|, and others from
+common syntax groups.  Both help sections are good reads.
+____________________________________________________________________________
+
+If you want to inherit a specific attribute of another highlight group, you
+can do the following:
+
+```lua
+-- copy `SpellRare` except `sp = red`
+SpellBad = function(self)
+	local definition = vim.deepcopy(self.SpellRare)
+	definition.sp = red
+	return definition
+end
+```
+
+The function will be executed by |arcoiris| and transformed into the
+expected result.
+____________________________________________________________________________
+
+NOTE: |Replace-mode| will probably be useful here.
+
+NOTE: /As long as you do not remove any highlight groups or colors/, you can
+		safely ignore any highlight groups that are `link`ed to others.
+
+		For example, programming languages almost exclusively link to the 1st
+		and 2nd sections, so as long as you define everything there you will
+		automatically be defining the rest of the highlights, which is one of
+		the benefits of using this template.

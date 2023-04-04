@@ -1,0 +1,58 @@
+Sourcing
+	When you wish to load your colorscheme, simply add this folder with a plugin manager
+	and then use `colorscheme <your colorscheme name>`. For example, in my configuration,
+	I source arcoiris by using `colorscheme arcoiris`.
+
+	These online resources can help you design your colorscheme:
+
+	1. the xterm palette.
+		* http://upload.wikimedia.org/wikipedia/en/1/15/Xterm_256color_chart.svg
+	2. play with hexadecimal colors right in the address bar (currently down).
+		* http://whatcolor.herokuapp.com/
+	3. similar concept, fuzzier implementation.
+		* http://color.hailpixel.com/
+	4. similar concept, fancier implementation.
+		* http://colourco.de/
+	5. extract a palette from an image.
+		* http://www.colr.org/
+	6. search for 'word', get images and color palettes.
+		* http://colores.manugarri.com/
+	7. user-created palettes.
+		* http://www.colourlovers.com/palettes
+	8. a no-nonsense colorscheme generator.
+		* http://www.pluaang.dk/color+scheme/
+	9. Adobe's fancy colorscheme generator.
+		* https://color.adobe.com/
+	10. The classic 'Color Scheme Designer', rebranded.
+		* http://paletton.com/
+	11. A very smart palette generator.
+		* http://vrl.cs.brown.edu/color
+	12. 'I Made My Own Colour Scheme and You Can Too!'.
+		* https://cmcenroe.me/2018/04/03/colour-scheme.html
+
+	A few things to note:
+
+	* The Windows console (`cmd`) is limited to the 16 so-called 'ANSI' colors but it used to
+			have a few of them interverted which makes numbers impractical. Use color names
+			instead of numbers: :help cterm-colors
+		* The Windows console doesn't do italics, underlines or bolded text;
+			it is limited to normal and reverse. Keep that in mind if you want
+			your colorscheme to be usable in as many environments as possible by as many
+			people as possible.
+		* The Windows TERMINAL, however, is capable of more.
+	* All of the terminal emulators in use these days allow their users to
+		change the 16 so-called 'ANSI' colors. It is also possible on some platforms
+		to change some or all of the 256 colors in the xterm palette. Don't take
+		anything for granted.
+	* When used against a light background, strong colors work better than muted
+		ones. Light or dark doesn't really matters. Also, it is harder to discriminate
+		between two similar colors on a light background.
+	* Both strong and muted colors work well against a dark background. It is also
+		easier to work with similar colors, but dark colors don't work at all.
+	* Use as many text samples as possible. String-heavy languages may look completely
+		different than keyword-heavy ones. This can have an impact on the usability
+		of your colorscheme.
+	* Most terminal emulators and terminal multiplexers currently in use on unix-like
+		systems support 256 colors but they almost always default to a '$TERM' that tells
+		Vim otherwise. Your users will need to make sure their terminal emulator/multiplexer
+		is correctly set up if they want to enjoy the best possible experience.
