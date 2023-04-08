@@ -874,4 +874,16 @@ return {
 	SignifySignDelete = 'GitGutterDelete',
 	SignifySignChangeDelete = 'GitGutterChangeDelete',
 
+  -- neo-tree
+  NeoTreeGitUntracked = { fg = COLOUR.syntax_color_added, italic = true, bold = true},
+
+  -- nvim-ts-rainbow2
+  TSRainbowRed     = { fg = COLOUR.red_light },
+  TSRainbowYellow  = { fg = COLOUR.tan },
+  TSRainbowBlue    = { fg = COLOUR.teal },
+  TSRainbowOrange  = { fg = COLOUR.orange_light },
+  TSRainbowGreen   = { fg = COLOUR.syntax_color_added },
+  TSRainbowViolet  = { fg = COLOUR.magenta },
+  TSRainbowCyan    = { fg = COLOUR.turqoise },
+
 }
