@@ -1,5 +1,5 @@
 --[[ These are the ones you should edit.
-     TIP: you can use `colors.COLOUR.black`, etc to access what you defined in the other file. ]]
+     TIP: you can use `COLOUR.black`, etc to access what you defined in the other file. ]]
 
 return {
 	--[[ Plaintext ]]
@@ -10,24 +10,24 @@ return {
 	Normal = {fg = COLOUR.gray_light},
 	Title = 'Bold',
 	Underlined = {fg = COLOUR.turqoise, underline = true},
-	Whitespace = 'NonText',
+	Whitespace = {fg = COLOUR.trailing, bg = NONE },
 
 	-- "Non"-text
 	Conceal = 'NonText',
 	EndOfBuffer = 'NonText',
 	Ignore = {fg = COLOUR.gray},
-	NonText = {fg = COLOUR.gray_darker},
+	NonText = {fg = COLOUR.non_text, bg = COLOUR.non_text},
 
 	-- Literals
 	Constant = {fg = COLOUR.orange_light},
-	String = {fg = COLOUR.green_dark},
+	String = {fg = COLOUR.magenta},
 	Character = {fg = COLOUR.red_light},
 	Number = {fg = COLOUR.pink_light},
 	Boolean = {fg = COLOUR.yellow},
 	Float = 'Number',
 
 	-- Syntax
-	Comment = {fg = COLOUR.gray, italic = true},
+	Comment = {fg = COLOUR.comment, italic = true},
 	Conditional = {fg = COLOUR.ice, italic = true},
 	Debug = 'WarningMsg',
 	Delimiter = {fg = COLOUR.white},
@@ -78,7 +78,7 @@ return {
 	--[[ Editor UI ]]
 
 	-- Status Line
-	StatusLine = {fg = COLOUR.green_light, bg = COLOUR.gray_darker},
+	StatusLine = {fg = COLOUR.green_light, bg = COLOUR.main_bg},
 	StatusLineNC = function(self) return {fg = COLOUR.gray, bg = self.StatusLine.bg} end,
 	StatusLineTerm = 'StatusLine',
 	StatusLineTermNC = 'StatusLineNC',
@@ -89,7 +89,7 @@ return {
 	TabLineSel = function(self) return {fg = self.TabLine.fg, bg = COLOUR.gray_dark} end,
 
 	-- Line Highlighting
-	CursorLine = {bg = COLOUR.gray_dark},
+	CursorLine = {bg = COLOUR.main_bg},
 	CursorLineNr = function(self) return {fg = COLOUR.pink, bg = self.LineNr.bg} end,
 	LineNr = {fg = COLOUR.gray},
 	QuickFixLine = function(self) return {bg = self.StatusLine.bg} end,
@@ -128,11 +128,11 @@ return {
 	SpellRare = {sp = COLOUR.orange, undercurl = true},
 
 	-- Conditional Column Highlighting
-	ColorColumn = {reverse = true},
+	ColorColumn = {reverse = false},
 	SignColumn = {},
 
 	-- Messages
-	Error = {fg = COLOUR.white, bg = COLOUR.red_dark, bold = true},
+	Error = {fg = COLOUR.red, bg = COLOUR.lsp_erro_bg, bold = true},
 	ErrorMsg = {fg = COLOUR.red, bold = true},
 	ModeMsg = {fg = COLOUR.yellow},
 	Question = {fg = COLOUR.orange_light, underline = true},
@@ -167,11 +167,11 @@ return {
 	-- Cursor
 	Cursor = {reverse = true},
 	CursorIM = 'Cursor',
-	CursorColumn = {bg = COLOUR.gray_dark},
+	CursorColumn = {bg = COLOUR.main_bg},
 
 	-- Misc
 	Directory = {fg = COLOUR.ice, bold = true},
-	WinSeparator = {fg = COLOUR.white},
+	WinSeparator = {fg = COLOUR.list_chars},
 
 	--[[ Programming Languages
 		Everything in this section is OPTIONAL. Feel free to remove everything
@@ -849,13 +849,6 @@ return {
 	TodoSignTODO = 'TodoFgTODO',
 	TodoSignWARN = 'TodoFgWARN',
 
-	-- trouble.nvim
-	TroubleCount = function(self)
-		local definition = vim.deepcopy(self.Number)
-		definition.underline = true
-		return definition
-	end,
-
 	-- vim-easymotion
 	EasyMotion = 'IncSearch',
 
@@ -880,4 +873,5 @@ return {
 	SignifySignChange = 'GitGutterChange',
 	SignifySignDelete = 'GitGutterDelete',
 	SignifySignChangeDelete = 'GitGutterChangeDelete',
+
 }
