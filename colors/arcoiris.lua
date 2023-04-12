@@ -5,22 +5,21 @@ local colorscheme_name = 'arcoiris'
 vim.api.nvim_set_var('colors_name', colorscheme_name)
 
 -- WARN: users shouldn't touch this.
-local colourscheme_access = 'colourschemes.' .. colorscheme_name
+COLOURSCHEME_ACCESS = 'colourschemes.' .. colorscheme_name
 
 -- WARN: users shouldn't touch this.
-local colorscheme = require(colourscheme_access)
+local colorscheme = require(COLOURSCHEME_ACCESS)
 
 COLOUR = nil
 
 if vim.o.background == 'dark' then
-  COLOUR = require(colourscheme_access .. '.colours.dark')
+  COLOUR = require(COLOURSCHEME_ACCESS .. '.colours.dark')
 else
-  COLOUR = require(colourscheme_access .. '.colours.light')
+  COLOUR = require(COLOURSCHEME_ACCESS .. '.colours.light')
 end
 
-colorscheme.highlight_all(
-  require(colourscheme_access .. '.highlights.groups')
-)
+require(COLOURSCHEME_ACCESS .. '.highlights.groups')
+
 colorscheme.highlight_terminal(
-  require(colourscheme_access .. '.highlights.terminal')
+  require(COLOURSCHEME_ACCESS .. '.highlights.terminal')
 )

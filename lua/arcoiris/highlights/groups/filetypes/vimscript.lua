@@ -1,0 +1,18 @@
+return {
+	vimCmdSep = 'Delimiter',
+	vimFunction = 'Function',
+	vimFgBgAttrib = 'Constant',
+	vimHiCterm = 'Label',
+	vimHiCtermFgBg = 'vimHiCterm',
+	vimHiGroup = 'Typedef',
+	vimHiGui = 'vimHiCterm',
+	vimHiGuiFgBg = 'vimHiGui',
+	vimHiKeyList = 'Operator',
+	vimIsCommand = 'Identifier',
+	vimOption = 'Keyword',
+	vimScriptDelim = 'Ignore',
+	vimSet = 'String',
+	vimSetEqual = 'Operator',
+	vimSetSep = 'Delimiter',
+	vimUserFunc = 'vimFunction',
+}

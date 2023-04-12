@@ -35,20 +35,20 @@
 ]]
 
 return {
-  [1]  = COLOUR.black,
-  [2]  = COLOUR.red_dark,
-  [3]  = COLOUR.green_dark,
-  [4]  = COLOUR.orange,
-  [5]  = COLOUR.blue,
-  [6]  = COLOUR.magenta_dark,
-  [7]  = COLOUR.teal,
-  [8]  = COLOUR.gray,
-  [9]  = COLOUR.gray_dark,
-  [10] = COLOUR.red,
-  [11] = COLOUR.green,
-  [12] = COLOUR.yellow,
-  [13] = COLOUR.turqoise,
-  [14] = COLOUR.purple,
-  [15] = COLOUR.cyan,
-  [16] = COLOUR.gray_light
+  [1]  = COLOUR.fg_0,
+  [2]  = COLOUR.red_0,
+  [3]  = COLOUR.green_3,
+  [4]  = COLOUR.orange_0,
+  [5]  = COLOUR.blue_1,
+  [6]  = COLOUR.violet_2,
+  [7]  = COLOUR.blue_2,
+  [8]  = COLOUR.fg_1,
+  [9]  = COLOUR.fg_2,
+  [10] = COLOUR.red_1,
+  [11] = COLOUR.green_0,
+  [12] = COLOUR.yellow_0,
+  [13] = COLOUR.green_4,
+  [14] = COLOUR.violet_1,
+  [15] = COLOUR.blue_4,
+  [16] = COLOUR.fg_3
 }

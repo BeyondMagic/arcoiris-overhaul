@@ -1,0 +1,3 @@
+return {
+	JumpMotion = 'EasyMotion',
+}

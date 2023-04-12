@@ -1,0 +1,3 @@
+return {
+	FernBranchText = 'Directory',
+}

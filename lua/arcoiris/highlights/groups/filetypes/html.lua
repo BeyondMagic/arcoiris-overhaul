@@ -1,0 +1,17 @@
+return {
+	htmlArg = 'Label',
+	htmlBold = 'Bold',
+	htmlTitle = 'htmlBold',
+	htmlEndTag = 'htmlTag',
+	htmlH1 = 'markdownH1',
+	htmlH2 = 'markdownH2',
+	htmlH3 = 'markdownH3',
+	htmlH4 = 'markdownH4',
+	htmlH5 = 'markdownH5',
+	htmlH6 = 'markdownH6',
+	htmlItalic = 'Italic',
+	htmlSpecialTagName = 'Keyword',
+	htmlTag = 'Special',
+	htmlTagN = 'Typedef',
+	htmlTagName = 'Type',
+}
