@@ -1,9 +1,9 @@
 return {
-	NvimTreeGitDeleted = function(self) return {fg = self.DiffDelete.bg} end,
+	NvimTreeGitDeleted = {fg = COLOUR.red_3},
 	NvimTreeGitDirty = {fg = COLOUR.orange_0},
 	NvimTreeGitIgnored = 'Ignore',
 	NvimTreeGitMerge = 'NvimTreeGitRenamed',
-	NvimTreeGitNew = function(self) return {fg = self.DiffAdd.bg} end,
-	NvimTreeGitRenamed = function(self) return {fg = self.DiffChange.bg} end,
+	NvimTreeGitNew = {fg = COLOUR.green_5},
+	NvimTreeGitRenamed = {fg = COLOUR.yellow_1},
 	NvimTreeGitStaged = {fg = COLOUR.blue_3},
 }

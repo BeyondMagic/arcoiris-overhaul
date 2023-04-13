@@ -27,7 +27,6 @@ return {
 	luaSpecialValue = 'Function',
 	luaStatement = 'Keyword',
 	luaStringLongTag = function(self)
-		local delimiter = self.Delimiter
-		return {bg = delimiter.bg, fg = delimiter.fg, italic = true}
+		return { fg = COLOUR.fg_1, italic = true }
 	end,
 }

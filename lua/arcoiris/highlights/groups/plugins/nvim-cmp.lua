@@ -1,7 +1,7 @@
 return {
 	CmpItemAbbr = 'Ignore',
 	CmpItemAbbrMatch = 'Underlined',
-	CmpItemAbbrMatchFuzzy = function(self) return {fg = self.Normal.fg, nocombine = true, underline = true} end,
+	CmpItemAbbrMatchFuzzy = {fg = COLOUR.fg_0, nocombine = true, underline = true},
 	CmpItemKindClass = 'CmpItemKindStruct',
 	CmpItemKindsp = 'Label',
 	CmpItemKindConstant = 'Constant',

@@ -1,10 +1,10 @@
 return {
-	TodoFgFIX = function(self) return {fg = self.ErrorMsg.fg} end,
+	TodoFgFIX = {fg = COLOUR.red_3},
 	TodoFgHACK = {fg = COLOUR.yellow_0},
-	TodoFgNOTE = 'DiagnosticFloatingHint',
-	TodoFgPERF = 'DiagnosticFloatingInfo',
-	TodoFgTODO = function(self) return {fg = self.Todo.bg, italic = true} end,
-	TodoFgWARN = function(self) return {fg = self.WarningMsg.fg} end,
+	TodoFgNOTE = {fg = COLOUR.violet_0, italic = true},
+	TodoFgPERF = {fg = COLOUR.red_2, italic = true},
+	TodoFgTODO = {fg = COLOUR.bg_0, italic = true},
+	TodoFgWARN = {fg = COLOUR.orange_0},
 
 	TodoBgFIX = function(self) return {fg = COLOUR.bg_0, bg = self.TodoFgFIX.fg, bold = true, italic = true, nocombine = true} end,
 	TodoBgHACK = function(self) return {fg = COLOUR.bg_0, bg = self.TodoFgHACK.fg, bold = true, italic = true, nocombine = true} end,

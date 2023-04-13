@@ -8,8 +8,7 @@ return {
 	scssIf = 'PreCondit',
 	scssInclude = 'Include',
 	scssMixinName = function(self)
-		local definition = self.cssClassName
-		return {bg = definition.bg, fg = definition.fg, italic = true}
+		return {fg = COLOUR.fg_0, italic = true}
 	end,
 	scssSelectorChar = 'Delimiter',
 	scssSelectorName = 'Identifier',

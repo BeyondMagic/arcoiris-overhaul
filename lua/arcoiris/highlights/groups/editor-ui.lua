@@ -6,7 +6,7 @@ return {
 	StatusLineTermNC = 'StatusLineNC',
 
 	-- Tabline
-	TabLine = function(self) return {fg = self.Normal.fg, bg = self.StatusLine.bg} end,
+	TabLine = function(self) return {fg = COLOUR.fg_0, bg = self.StatusLine.bg} end,
 	TabLineFill = {fg = COLOUR.bg_0, bg = COLOUR.bg_0},
 	TabLineSel = function(self) return {fg = self.TabLine.fg, bg = COLOUR.bg_4} end,
 
@@ -20,7 +20,7 @@ return {
 
 	-- Popups
 	FloatBorder = {fg = COLOUR.fg_3},
-	Pmenu = function(self) return {fg = self.Normal.fg, bg = COLOUR.bg_4} end,
+	Pmenu = function(self) return {fg = COLOUR.fg_0, bg = COLOUR.bg_4} end,
 	PmenuSbar = {bg = COLOUR.bg_3},
 	PmenuSel = {fg = COLOUR.bg_0, bg = COLOUR.fg_0},
 	PmenuThumb = {bg = COLOUR.fg_1},
@@ -33,7 +33,7 @@ return {
 	-- Diffs
 	DiffAdd = {fg = COLOUR.bg_0, bg = COLOUR.green_5},
 	diffAdded = 'DiffAdd',
-	DiffChange = {},
+	DiffChange = {bg = COLOUR.yellow_1},
 	DiffDelete = function(self) return {fg = self.DiffAdd.fg, bg = COLOUR.red_3} end,
 	DiffText = function(self) return {fg = self.DiffAdd.fg, bg = COLOUR.yellow_0} end,
 	diffRemoved = 'DiffDelete',

@@ -1,8 +1,4 @@
 return {
-	IndentBlanklineChar = function(self)
-		local definition = vim.deepcopy(self.Whitespace)
-		definition.nocombine = true
-		return definition
-	end,
+	IndentBlanklineChar = {fg = COLOUR.fg_6, bg = NONE, nocombine = true },
 	IndentBlanklineSpaceChar = 'IndentBlanklineChar',
 }

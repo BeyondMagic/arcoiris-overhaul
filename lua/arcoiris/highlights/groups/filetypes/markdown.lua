@@ -24,6 +24,6 @@ return {
 	mkdLineBreak = 'NonText',
 	mkdLink = 'Underlined',
 	mkdListItem = 'Special',
-	mkdRule = function(self) return {fg = self.Ignore.fg, sp = self.Delimiter.fg, underline = true} end,
+	mkdRule = function(self) return {fg = COLOUR.fg_3, sp = COLOUR.fg_1, underline = true} end,
 	mkdURL = 'htmlString',
 }
